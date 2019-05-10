@@ -1,0 +1,134 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="apple-touch-icon" href="icon.png">
+  <!-- Place favicon.ico in the root directory -->
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+
+<!-- Add your site or application content here -->
+<div class="container">
+<div class="row">
+<div class="col-sm">
+    <!--
+	<h4>Load Data</h4>
+
+	<form id="jsonFile" name="jsonFile" enctype="multipart/form-data" method="post">
+	<div class="form-group">
+		<label for="exampleFormControlFile1">Example file input</label>
+		<input type="file" class="form-control-file" id="fileinput">
+	</div>
+	<div class="form-group">
+		<input type='button' id='btnLoad' value='Load' onclick='loadFile();'>
+	</div>
+	</form>
+    -->
+</div>
+</div>
+<h1>Open News</h1>
+<p>Google Scholar for news</p>
+<div class="row">
+<div class="col-sm">
+	<h4>Publishers</h4>
+    <div>
+        <ul>
+        {% for k, v in counter_publishers.items() %}
+        <li>{{ k }} ({{ v }})</li>
+        {% endfor %}
+        </ul>
+    </div>
+    </hr>
+	<h4>People</h4>
+    <div>
+        <ul>
+        {% for k, v in counter_authors.items() %}
+        <li>{{ k }} ({{ v }})</li>
+        {% endfor %}
+        </ul>
+    </div>
+    </hr>
+	<h4>Topics</h4>
+    <div>
+        {% for pub, counter in keyword_by_publisher.items() %}
+        <h6>{{ pub }}</h6>
+            <ul>
+            {% for k, v in counter.items() %}
+            <li>{{ k }} ({{ v }})</li>
+            {% endfor %}
+            </ul>
+        {% endfor %}
+    </div>
+    </hr>
+	<h4>Topics 2</h4>
+    <div>
+        <ul>
+        {% for key, counter in publisher_by_keywords.items() %}
+        <li>{{ key }} - {% for k, v in counter.items() %} {{k}} ({{v}}){% endfor %}</li>
+        {% endfor %}
+        </ul>
+    </div>
+    </hr>
+	<h4>Data</h4>
+    <div>
+        {% for d in data %}
+        <p><code>{{ d }}</code></p>
+        {% endfor %}
+    </div>
+    </hr>
+</div>
+</div>
+</div> <!-- container -->
+
+<script type="text/javascript">
+
+  function loadFile() {
+    var input, file, fr;
+
+    if (typeof window.FileReader !== 'function') {
+      alert("The file API isn't supported on this browser yet.");
+      return;
+    }
+
+    input = document.getElementById('fileinput');
+    if (!input) {
+      alert("Um, couldn't find the fileinput element.");
+    }
+    else if (!input.files) {
+      alert("This browser doesn't seem to support the `files` property of file inputs.");
+    }
+    else if (!input.files[0]) {
+      alert("Please select a file before clicking 'Load'");
+    }
+    else {
+      file = input.files[0];
+      fr = new FileReader();
+      fr.onload = receivedText;
+      fr.readAsText(file);
+    }
+
+    function receivedText(e) {
+      let lines = e.target.result;
+      var newArr = JSON.parse(lines); 
+      test(newArr);
+    }
+  }
+</script>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="js/plugins.js"></script>
+  <script src="js/main.js"></script>
+</body>
+
+</html>
